@@ -1,21 +1,69 @@
 import React, { useState } from 'react';
 import Header from './Header';
+import axios from "axios";
+import { API_END_POINT } from '../utils/constant';
+import toast from "react-hot-toast";
+import {useNavigate} from "react-router-dom";
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(false);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(""); 
-  const getInputData = (e) => {
-    e.preventDefault();
+  const navigate = useNavigate();
+
+
+  const getInputData =async (e) => {
+  e.preventDefault();
+  if (isLogin) {
+    //login
+    const user = {email,password};
+    try {
+      const res = await axios.post(`${API_END_POINT}/login`,user,{
+        headers:{
+          "Content-Type":'application/json'
+        },
+        withCredentials:true
+      })
+      console.log(res);
+      if (res.data.success) {
+        toast.success(res.data.message);
+      }
+      navigate("/browse");
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+  }else{
+//register
+const user = {fullName,email,password};
+  try {
+    const res = await axios.post(`${API_END_POINT}/register`,user,{
+        headers:{
+          "Content-Type":'application/json'
+        },
+        withCredentials:true});
+    console.log(res);
+    if (res.data.success) {
+      toast.success(res.data.message);
+    }
+    setIsLogin(true);
+  } catch (error) {
+  toast.error(error.response.data.message);
+  console.log(error);
+  }
+  }
     console.log(fullName, email, password); 
     setEmail("");
     setFullName("");
     setPassword("");
   };
+
+
   const loginHandler = () => {
     setIsLogin(!isLogin);
   };
+
   return (
     <div className=''>
       <Header></Header>
