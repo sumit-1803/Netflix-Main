@@ -10,6 +10,9 @@ import { options } from '../utils/constant';
 import {useDispatch} from "react-redux";
 import { getNowPlayingMovies } from '../redux/movieSlice';
 import useNowPlayingMovies from '../hooks/useNowPlayingMovies';
+import usePopularMovies from '../hooks/usePopularMovies';
+import useTopRatedMovies from '../hooks/useTopRatedMovies';
+import useUpcomingMovies from '../hooks/useUpcomingMovies';
 
 export default function Browse() {
 
@@ -19,6 +22,9 @@ export default function Browse() {
   const dispatch = useDispatch();
 
   useNowPlayingMovies();
+  usePopularMovies();
+  useTopRatedMovies();
+  useUpcomingMovies();
 
   useEffect(()=>{
     // if (!user) {
