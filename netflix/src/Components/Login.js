@@ -38,9 +38,10 @@ const Login = () => {
                 });
                 if(res.data.success){
                     toast.success(res.data.message);
+                    console.log(res.data);
+                    dispatch(setUser(res.data.user));
+                    navigate("/browse");
                 }
-                dispatch(setUser(res.data.user));
-                navigate("/browse");
             } catch (error) {
                 toast.error(error.response.data.message);
                 console.log(error);
