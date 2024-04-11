@@ -1,13 +1,12 @@
 import React from 'react'
 import { IoIosArrowDropdown } from "react-icons/io";
-import {useSelector} from "react-redux";
-import {useDispatch} from "react-redux"; 
-import { API_END_POINT } from '../utils/constant.js';
+import {useSelector,useDispatch} from "react-redux" 
+import { API_END_POINT } from '../utils/constant';
 import axios from "axios";
-import { setUser } from '../redux/userSlice.js';
+import { setUser } from '../redux/userSlice';
 import {useNavigate} from "react-router-dom";
 import toast from "react-hot-toast";
-import { setToggle } from '../redux/movieSlice.js';
+import { setToggle } from '../redux/movieSlice';
 
 const Header = () => { 
     const user = useSelector((store)=>store.app.user);
@@ -36,8 +35,7 @@ const Header = () => {
         <div className='absolute z-10 flex w-full items-center justify-between px-6 bg-gradient-to-b from-black'>
             <img className='w-56' src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1198px-Netflix_2015_logo.svg.png" alt="netflix-logo" />
             {
-                user && 
-                (
+                user && (
                     <div className='flex items-center'>
                         <IoIosArrowDropdown size="24px" color='white' />
                         <h1 className='text-lg font-medium text-white'>{user.fullName}</h1>
@@ -53,4 +51,4 @@ const Header = () => {
     )
 }
 
-export default Header;
+export default Header
