@@ -2,11 +2,11 @@ import React from 'react'
 import { IoMdPlay } from "react-icons/io";
 import { BsInfoCircle } from "react-icons/bs";
 
-export default function VideoTitle() {
+const VideoTitle=({title,overview})=> {
   return (
-    <div className='absolute aspect-video text-white pt-[18%] p-12'>
-      <h1 className='text-3xl font-bold' >Marvel Universe</h1>
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+    <div className='w-[vw] absolute  text-white pt-[18%] p-12'>
+      <h1 className='text-3xl font-bold' >{title}</h1>
+      <p className='w-1/3 mt-4' >{overview}</p>
       <div className='flex mt-8'>
         <button className='flex items-center px-6 py-2 bg-white text-black rounded-md hover:bg-opacity-80'>
             <IoMdPlay size="24px"></IoMdPlay>
@@ -20,3 +20,4 @@ export default function VideoTitle() {
     </div>
   )
 }
+export default VideoTitle;

@@ -1,23 +1,23 @@
 import React from 'react'
+import useMovieById from '../hooks/useMovieById';
+import {useSelector} from "react-redux";
 
-export default function VideoBackground() {
-  return (
-    <div className='w-screen'>
-      {/* <iframe 
-      className='w-screen aspect-video'
-      src="https://www.youtube.com/embed/NHtV0RFhFEM?si=TAWkKBrp6QELjBAI&autoplay=1&mute=1" 
-      title="YouTube video player" 
-      frameborder="0" 
-      allowfullscreen>
-      </iframe> */}
+const VideoBackground = ({movieId,bool}) => {
+    const trailerMovie = useSelector(store=>store.movie.trailerMovie);
+    
+    useMovieById(movieId);
 
-
-      <iframe
-       className='w-screen aspect-video'
-        src="https://www.youtube.com/embed/rqJDO3TWnac?si=klGwrV_YbfKuNM-G&autoplay=1&mute=1" 
-        title="YouTube video player"
-        frameborder="0"
-        allowfullscreen></iframe>
-    </div>
-  )
+    return (
+        <div className='w-[vw] overflow-hidden'>
+            <iframe
+                className={`${bool ? "w-[100%]" : "w-screen aspect-video" } `}
+                src={`https://www.youtube.com/embed/${trailerMovie?.key}?si=HorxQfzFY2_TAO1W&autoplay=1&mute=1`}
+                title="YouTube video player"
+                frameBorder="0"
+                allowFullScreen>
+            </iframe>
+        </div>
+    )
 }
+
+export default VideoBackground

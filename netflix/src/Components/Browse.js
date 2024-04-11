@@ -13,10 +13,12 @@ import useNowPlayingMovies from '../hooks/useNowPlayingMovies';
 import usePopularMovies from '../hooks/usePopularMovies';
 import useTopRatedMovies from '../hooks/useTopRatedMovies';
 import useUpcomingMovies from '../hooks/useUpcomingMovies';
+import SearchMovie from './SearchMovie';
 
 export default function Browse() {
 
   const user = useSelector(store=>store.app.user);
+  const toggle = useSelector(store=>store.movie.toggle);
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -37,8 +39,12 @@ export default function Browse() {
     <div>
       <Header></Header>
       <div>
-        <MainContainer></MainContainer>
-        <MovieContainer></MovieContainer>
+        {
+          toggle ? <SearchMovie></SearchMovie> : <>
+          <MainContainer></MainContainer>
+        <MovieContainer></MovieContainer></> 
+        }
+        
 
       </div>
     </div>
