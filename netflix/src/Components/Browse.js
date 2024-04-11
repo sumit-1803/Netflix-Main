@@ -29,9 +29,9 @@ export default function Browse() {
   useUpcomingMovies();
 
   useEffect(()=>{
-    // if (!user) {
-    //   navigate("/")
-    // }
+    if (!user) {
+      navigate("/")
+    }
     
   },[]);
 

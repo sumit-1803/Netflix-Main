@@ -1,72 +1,72 @@
-import React, { useState } from 'react'
+import React from 'react';
 import Header from './Header.js';
 import axios from "axios";
 import { API_END_POINT } from '../utils/constant.js';
-import toast from "react-hot-toast"
-import {useNavigate} from "react-router-dom"
-import {useDispatch} from "react-redux";
-import {useSelector} from "react-redux";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { setLoading } from '../redux/userSlice.js';
-import {setUser} from '../redux/userSlice.js';
-
+import { setUser } from '../redux/userSlice.js';
 
 const Login = () => {
-    const [isLogin, setIsLogin] = useState(false);
-    const [fullName, setFullName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [isLogin, setIsLogin] = React.useState(false);
+    const [fullName, setFullName] = React.useState("");
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const isLoading = useSelector(store => store.app.isLoading);
+    const user = useSelector(store => store.app.user);
 
-    const isLoading = useSelector(store=>store.app.isLoading);
- 
     const loginHandler = () => {
         setIsLogin(!isLogin);
     }
-    const getInputData = async (e)=>{
+
+    const getInputData = async (e) => {
         e.preventDefault();
         dispatch(setLoading(true));
-        if(isLogin){
+        if (isLogin) {
             //login
-            const user = {email,password}; 
+            const user = { email, password };
             try {
-                const res = await axios.post(`${API_END_POINT}/login`, user,{
-                    headers:{
-                        'Content-Type':'application/json'
+                const res = await axios.post(`${API_END_POINT}/login`, user, {
+                    headers: {
+                        'Content-Type': 'application/json'
                     },
-                    withCredentials:true
+                    withCredentials: true
                 });
-                if(res.data.success){
-                    toast.success(res.data.message);
-                    console.log(res.data);
-                    dispatch(setUser(res.data.user));
-                    navigate("/browse");
-                }
+               if (res.data.success) {
+                // Extract user data from the message property
+                const userData = res.data.message.split("Welcome back ")[1];
+                dispatch(setUser(userData));
+                navigate("/browse");
+            }
             } catch (error) {
                 toast.error(error.response.data.message);
                 console.log(error);
             } finally {
                 dispatch(setLoading(false));
             }
-        }else{
+        } else {
             //register
             dispatch(setLoading(true));
-            const user = {fullName, email, password};
+            const user = { fullName, email, password };
             try {
-                const res = await axios.post(`${API_END_POINT}/register`,user,{
-                    headers:{
-                        'Content-Type':'application/json'
+                const res = await axios.post(`${API_END_POINT}/register`, user, {
+                    headers: {
+                        'Content-Type': 'application/json'
                     },
-                    withCredentials:true
+                    withCredentials: true
                 });
-                if(res.data.success){
+                if (res.data.success) {
                     toast.success(res.data.message);
                 }
                 setIsLogin(true);
             } catch (error) {
                 toast.error(error.response.data.message);
                 console.log(error);
-            } finally{
+            } finally {
                 dispatch(setLoading(false));
             }
         }
@@ -74,7 +74,7 @@ const Login = () => {
         setEmail("");
         setPassword("");
     }
-    
+
     return (
         <div>
             <Header />
@@ -97,4 +97,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Login;

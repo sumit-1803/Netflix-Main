@@ -4,7 +4,7 @@ import { BsInfoCircle } from "react-icons/bs";
 
 const VideoTitle=({title,overview})=> {
   return (
-    <div className='w-[vw] absolute  text-white pt-[18%] p-12'>
+    <div className='w-[vw] absolute    text-white pt-[18%] p-12'>
       <h1 className='text-3xl font-bold' >{title}</h1>
       <p className='w-1/3 mt-4' >{overview}</p>
       <div className='flex mt-8'>
